@@ -19,7 +19,7 @@ exports.login =   async function (req, res) {
             console.log('[MySQL ERROR]', err);
         });
     
-        console.log("Correo:  " + result[0].email);
+        
         if(result && result.length){
             console.log("Resultado " + result[0].email);
             
