@@ -27,10 +27,10 @@ const connection = mysql.createConnection({
 */
 
 var db_config = {
-  host     : 'localhost',
-   user     : 'root',
-   password : 'Fedora12',
-   database : 'asistencia'
+  host     : 'bied0ycmppx0keqba99d-mysql.services.clever-cloud.com',
+    user     : 'ueqm39ayixoqyrc6',
+    password : 'oCmq7FZk6EkuWbOMW3Ik',
+    database : 'bied0ycmppx0keqba99d'
 };
 
 function handleDisconnect() {
