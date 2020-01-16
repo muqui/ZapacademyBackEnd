@@ -4,7 +4,7 @@ var uuid = require('uuid');
 var express = require('express');
 const mysql  = require('mysql');
 var bodyParser = require('body-parser');
-
+require('events').EventEmitter.prototype._maxListeners = 100;
 const mysqlConexion = require('./app/model/db');
 const PORT = process.env.PORT || 5000
 var http = require('http');
