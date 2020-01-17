@@ -1,0 +1,78 @@
+const mysqlConexion = require('../model/db');
+//Simple version, without validation or sanitation
+exports.test = function (req, res) {
+    res.send('Greetings from the Test controller!');
+};
+//Regresa beneficiario
+exports.beneficiario = function (req, res) {
+    var curp = req.params.curp;
+    mysqlConexion.query('SELECT * FROM beneficiario where CURP =?' ,[curp], function(err,result,fields){
+        mysqlConexion.on('error', function(err){
+            console.log('[MySQL ERROR]', err);
+        });
+    
+        
+        if(result && result.length){
+            console.log("Resultado " + result[0].email);
+            
+            
+           
+           
+           
+           
+                res.end(JSON.stringify(result[0])) // if password is true return all info of user.
+           
+                 
+        }
+       
+    else{
+      
+       res.json('User not exist');
+        
+    }    
+});
+  //  res.send('beneficiario     !!!!!!!!!!!!!!!!!' + req.params.curp);
+};
+
+exports.create =   async function (req, res) {
+    var post_data = req.body;
+
+    var CURP = post_data.curp;
+    var nombre = post_data.nombre;
+    var apellido_paterno = post_data.apellido_materno;
+    var apellido_materno = post_data.apellido_materno;
+    var sexo = post_data.sexo;
+    var calle = post_data.calle;
+    var numero_int = post_data.numero_int;
+    var numero_ext = post_data.numero_ext;
+    var cp = post_data.cp;
+    var colonia = post_data.colonia;
+    var municipio = post_data.municipio;
+    var estado = post_data.estado;
+    var telefono = post_data.telefono;
+    var celular = post_data.celular;
+
+    
+   
+    mysqlConexion.query('SELECT * FROM beneficiario where CURP =?' ,[CURP], function(err,result,fields){
+        mysqlConexion.on('error', function(err){
+            console.log('[MySQL ERROR]', err);
+        });
+    
+        
+        if(result && result.length)
+        res.json('Beneficiario alredy exists!!!')
+    else{
+      
+        mysqlConexion.query('INSERT INTO beneficiario(CURP,nombre,apellido_paterno,apellido_materno,sexo,calle,numero_int,numero_ext,cp,colonia,municipio,estado,telefono,celular) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [CURP,nombre,apellido_paterno,apellido_materno,sexo,calle,numero_int,numero_ext,cp,colonia,municipio,estado,telefono,celular], function(err,result,fields){
+            mysqlConexion.on('error', function(err){
+                console.log('[MySQL ERROR]', err);
+                res.json('register error: ', err)
+            });
+            res.json('Register success');
+        })
+       
+    }    
+});
+
+};

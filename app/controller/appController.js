@@ -66,7 +66,7 @@ exports.register =   async function (req, res) {
         res.json('User alredy exists!!!')
     else{
       
-        mysqlConexion.query('INSERT INTO user(unique_id,name,lastname,email,encryted_password,salt,created_at,update_at) VALUES (?,?,?,?,?,?,NOW(),NOW())', [uid,name,lastname,email,password,salt], function(err,result,fields){
+        mysqlConexion.query('INSERT INTO user(unique_id,name,lastname,email,encryted_password,salt,created_at,update_at) VALUES (?,?,?,?,?,?,NOW(),NOW())', [uid,name,las,email,password,salt], function(err,result,fields){
             mysqlConexion.on('error', function(err){
                 console.log('[MySQL ERROR]', err);
                 res.json('register error: ', err)

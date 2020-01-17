@@ -11,13 +11,14 @@ var http = require('http');
 var bodyParser = require('body-parser');
 
 const app = express();
-var routes = require('./app/routes/approutes'); //importing route
-
+var routeLogin = require('./app/routes/approutes'); //importing route
+var routeBeneficiario = require('./app/routes/beneficiarioroute'); //Ruta beneficiario
 // serve files from the public directory
 app.use(express.static('public'));
 app.use(bodyParser.json());  
 app.use(bodyParser.urlencoded());
-app.use("/", routes);
+app.use("/", routeLogin);
+app.use("/beneficiario/", routeBeneficiario);
 
 
 http.createServer(app).listen(PORT, () => {
