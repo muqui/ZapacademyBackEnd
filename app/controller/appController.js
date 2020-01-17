@@ -54,6 +54,7 @@ exports.register =   async function (req, res) {
 
     var name = post_data.name;
     var email = post_data.email;
+    var lastname = post_data.lastname;
    
     mysqlConexion.query('SELECT * FROM user where email =?' ,[email], function(err,result,fields){
         mysqlConexion.on('error', function(err){
@@ -65,7 +66,7 @@ exports.register =   async function (req, res) {
         res.json('User alredy exists!!!')
     else{
       
-        mysqlConexion.query('INSERT INTO user(unique_id,name,email,encryted_password,salt,created_at,update_at) VALUES (?,?,?,?,?,NOW(),NOW())', [uid,name,email,password,salt], function(err,result,fields){
+        mysqlConexion.query('INSERT INTO user(unique_id,name,lastname,email,encryted_password,salt,created_at,update_at) VALUES (?,?,?,?,?,?,NOW(),NOW())', [uid,name,lastname,email,password,salt], function(err,result,fields){
             mysqlConexion.on('error', function(err){
                 console.log('[MySQL ERROR]', err);
                 res.json('register error: ', err)
