@@ -76,3 +76,36 @@ exports.create =   async function (req, res) {
 });
 
 };
+
+//Regresa lista de beneficiarios
+exports.lista = function (req, res) {
+    //select * from beneficiario where CURP LIKE '%nAVARRo%' OR nombre LIKE '%Navarro%' OR apellido_paterno LIKE '%Navarro%' OR apellido_materno LIKE '%navarro%';
+
+    var filtro = req.params.filtro;
+    mysqlConexion.query("SELECT * FROM beneficiario where CURP LIKE CONCAT('%', ?,  '%') OR nombre LIKE CONCAT('%', ?,  '%') OR apellido_paterno LIKE CONCAT('%', ?,  '%') OR apellido_materno LIKE CONCAT('%', ?,  '%')  " ,[filtro, filtro, filtro, filtro], function(err,result,fields){
+        mysqlConexion.on('error', function(err){
+            console.log('[MySQL ERROR]', err);
+        });
+    
+        
+        if(result && result.length){
+            console.log("Resultado " + result[0].email);
+            
+            
+           
+           
+           
+           
+                res.end(JSON.stringify(result)) 
+           
+                 
+        }
+       
+    else{
+      
+       res.json('User not exist');
+        
+    }    
+});
+ 
+};

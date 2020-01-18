@@ -10,7 +10,10 @@ const beneficiario_controller = require('../controller/BeneficiarioController');
 router.get('/test', beneficiario_controller.test);
 // Crea beneficiario
 router.post('/', beneficiario_controller.create);
-// Regresa beneficiario
+// Regresa 1 beneficiario
 router.get('/:curp', beneficiario_controller.beneficiario);
+//Regresa lista de beneficiarios 
+router.get('/lista/:filtro', beneficiario_controller.lista);
+
 
 module.exports = router;
