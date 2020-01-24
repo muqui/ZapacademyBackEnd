@@ -57,10 +57,10 @@ exports.create =   async function (req, res) {
     else{
         const id = req.session.user_id ;
         console.log('RECUPEAR SESSION ID = ', id);
-       // const sql = "INSERT INTO beneficiary(CURP,nombre,apellido_paterno,apellido_materno,sexo,calle,numero_ext,numero_int,codigo,colonia,municipio,estado,telefono,celular, user_id) VALUES ('CODA920508MJCNZL00','Diana','Prince','De Themyscira','MUJER','AGUA FRIA','8',NULL,45180,'AGUA FRIA','ZAPOPAN','JALISCO',NULL,'3312121200', 1)";
-       // mysqlConexion.query( sql, function(err,result,fields){
+        const sql = "INSERT INTO beneficiary(CURP,nombre,apellido_paterno,apellido_materno,sexo,calle,numero_ext,numero_int,codigo,colonia,municipio,estado,telefono,celular, user_id) VALUES ('CODA920508MJCNZL00','Diana','Prince','De Themyscira','MUJER','AGUA FRIA','8',NULL,45180,'AGUA FRIA','ZAPOPAN','JALISCO',NULL,'3312121200', 1)";
+        mysqlConexion.query( sql, function(err,result,fields){
    
-        mysqlConexion.query('INSERT INTO beneficiary(CURP,nombre,apellido_paterno,apellido_materno,sexo,calle,numero_ext,numero_int,codigo,colonia,municipio,estado,telefono,celular, user_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [CURP,nombre,apellido_paterno,apellido_materno,sexo,calle,numero_int,numero_ext,cp,colonia,municipio,estado,telefono,celular,id], function(err,result,fields){
+      //  mysqlConexion.query('INSERT INTO beneficiary(CURP,nombre,apellido_paterno,apellido_materno,sexo,calle,numero_ext,numero_int,codigo,colonia,municipio,estado,telefono,celular, user_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [CURP,nombre,apellido_paterno,apellido_materno,sexo,calle,numero_int,numero_ext,cp,colonia,municipio,estado,telefono,celular,id], function(err,result,fields){
             mysqlConexion.on('error', function(err){
                 console.log('[MySQL ERROR]', err);
                 res.json('register error: ', err)
