@@ -6,7 +6,7 @@ exports.test = function (req, res) {
 //Regresa beneficiario
 exports.beneficiario = function (req, res) {
     var curp = req.params.curp;
-    mysqlConexion.query('SELECT * FROM beneficiario where CURP =?' ,[curp], function(err,result,fields){
+    mysqlConexion.query('SELECT * FROM beneficiary where CURP =?' ,[curp], function(err,result,fields){
         mysqlConexion.on('error', function(err){
             console.log('[MySQL ERROR]', err);
         });
@@ -46,7 +46,7 @@ exports.create =   async function (req, res) {
 
     
    
-    mysqlConexion.query('SELECT * FROM beneficiario where CURP =?' ,[CURP], function(err,result,fields){
+    mysqlConexion.query('SELECT * FROM beneficiary where CURP =?' ,[CURP], function(err,result,fields){
         mysqlConexion.on('error', function(err){
             console.log('[MySQL ERROR]', err);
         });
@@ -57,7 +57,10 @@ exports.create =   async function (req, res) {
     else{
         const id = req.session.user_id ;
         console.log('RECUPEAR SESSION ID = ', id);
-        mysqlConexion.query('INSERT INTO beneficiary(CURP,nombre,apellido_paterno,apellido_materno,sexo,calle,numero_int,numero_ext,codigo,colonia,municipio,estado,telefono,celular,user_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [CURP,nombre,apellido_paterno,apellido_materno,sexo,calle,numero_int,numero_ext,cp,colonia,municipio,estado,telefono,celular,id], function(err,result,fields){
+       // const sql = "INSERT INTO beneficiary(CURP,nombre,apellido_paterno,apellido_materno,sexo,calle,numero_ext,numero_int,codigo,colonia,municipio,estado,telefono,celular, user_id) VALUES ('CODA920508MJCNZL00','Diana','Prince','De Themyscira','MUJER','AGUA FRIA','8',NULL,45180,'AGUA FRIA','ZAPOPAN','JALISCO',NULL,'3312121200', 1)";
+       // mysqlConexion.query( sql, function(err,result,fields){
+   
+        mysqlConexion.query('INSERT INTO beneficiary(CURP,nombre,apellido_paterno,apellido_materno,sexo,calle,numero_ext,numero_int,codigo,colonia,municipio,estado,telefono,celular, user_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [CURP,nombre,apellido_paterno,apellido_materno,sexo,calle,numero_int,numero_ext,cp,colonia,municipio,estado,telefono,celular,id], function(err,result,fields){
             mysqlConexion.on('error', function(err){
                 console.log('[MySQL ERROR]', err);
                 res.json('register error: ', err)
@@ -75,7 +78,8 @@ exports.lista = function (req, res) {
     //select * from beneficiario where CURP LIKE '%nAVARRo%' OR nombre LIKE '%Navarro%' OR apellido_paterno LIKE '%Navarro%' OR apellido_materno LIKE '%navarro%';
 
     var filtro = req.params.filtro;
-    mysqlConexion.query("SELECT * FROM beneficiario where CURP LIKE CONCAT('%', ?,  '%') OR nombre LIKE CONCAT('%', ?,  '%') OR apellido_paterno LIKE CONCAT('%', ?,  '%') OR apellido_materno LIKE CONCAT('%', ?,  '%')  " ,[filtro, filtro, filtro, filtro], function(err,result,fields){
+        mysqlConexion.query("SELECT * FROM beneficiary where CURP LIKE CONCAT('%', ?,  '%') OR nombre LIKE CONCAT('%', ?,  '%') OR apellido_paterno LIKE CONCAT('%', ?,  '%') OR apellido_materno LIKE CONCAT('%', ?,  '%')  " ,[filtro, filtro, filtro, filtro], function(err,result,fields){
+    
         mysqlConexion.on('error', function(err){
             console.log('[MySQL ERROR]', err);
         });

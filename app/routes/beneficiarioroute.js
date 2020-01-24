@@ -8,9 +8,9 @@ const beneficiario_controller = require('../controller/BeneficiarioController');
 
 
 // a simple test url to check that all of our files are communicating correctly.
-router.get('/test',authorize('Admin'), beneficiario_controller.test);
+router.get('/test', beneficiario_controller.test);
 // Crea beneficiario
-router.post('/',authorize('Admin'), beneficiario_controller.create);
+router.post('/', beneficiario_controller.create);
 // Regresa 1 beneficiario
 router.get('/:curp', beneficiario_controller.beneficiario);
 //Regresa lista de beneficiarios 
