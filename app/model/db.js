@@ -1,17 +1,18 @@
 var mysql = require('mysql')
 var pool = mysql.createPool({
     connectionLimit: 10,
-    /*
+    
     host     : 'bu4pcx41i9rxsnguus2p-mysql.services.clever-cloud.com',
     user     : 'uxyw1knbrsy0eksa',
     password : 'pt6CIZ7XJbjFpukgfwjK',
     database : 'bu4pcx41i9rxsnguus2p'
-    */
-
+    
+/*
    host     : 'localhost',
    user     : 'root',
    password : 'Fedora12',
    database : 'bu4pcx41i9rxsnguus2p'
+   */
 })
 pool.getConnection((err, connection) => {
     if (err) {
