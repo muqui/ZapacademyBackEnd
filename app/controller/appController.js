@@ -1,15 +1,27 @@
+
 var crypto = require('crypto');
 var uuid = require('uuid');
+const jwt = require('jsonwebtoken');
+
+var sessionData;
 // Client controller
 const Client = require('../model/appModel');
 const mysqlConexion = require('../model/db');
+
 //Simple version, without validation or sanitation
 exports.test = function (req, res) {
     res.send('Greetings from the Test controller!');
 };
 
+
+
 exports.login =   async function (req, res) {
     var post_data = req.body;
+    sessionData = req.session;
+    sessionData.id = {};
+   
+     
+    //console.log("Session=  " + sessionData.id);
     //extract email and password from request
     var user_password = post_data.password;
     var email = post_data.email;
@@ -22,14 +34,29 @@ exports.login =   async function (req, res) {
         
         if(result && result.length){
             console.log("Resultado " + result[0].email);
-            
+            const token = jwt.sign({ id: result[0].id, role: result[0].role }, "corona_navarro", { expiresIn : 60*60*4});
             var salt = result[0].salt; 
-            var encrypted_password = result[0].encryted_password; 
+            result[0].token = token; 
+            req.session.username = result[0].name;
+            var encrypted_password = result[0].encryted_password;
             var hashed_password = checkHashPassword(user_password,salt).passwordHash;
-            console.log("Password " + encrypted_password); //encryted_password
-            console.log("Hash " + hashed_password);
+            
+            //console.log("Password " + encrypted_password); //encryted_password
+            //console.log("Hash " + hashed_password);
+          
+            
+            const user = result[0];
+            req.session.user_id = user.id
+
+            console.log("set id en session " + req.session.user_id);
+
             if (encrypted_password == hashed_password)
-                res.end(JSON.stringify(result[0])) // if password is true return all info of user.
+            res.json({
+                user,
+                token
+            });
+               
+               // res.end(JSON.stringify(result[0].token)) // if password is true return all info of user.
             else
                 res.end(JSON.stringify('Wrong password '));    
         }
@@ -55,6 +82,7 @@ exports.register =   async function (req, res) {
     var name = post_data.name;
     var email = post_data.email;
     var lastname = post_data.lastname;
+    var role = post_data.role;
    
     mysqlConexion.query('SELECT * FROM user where email =?' ,[email], function(err,result,fields){
         mysqlConexion.on('error', function(err){
@@ -66,7 +94,7 @@ exports.register =   async function (req, res) {
         res.json('User alredy exists!!!')
     else{
       
-        mysqlConexion.query('INSERT INTO user(unique_id,name,lastname,email,encryted_password,salt,created_at,update_at) VALUES (?,?,?,?,?,?,NOW(),NOW())', [uid,name,las,email,password,salt], function(err,result,fields){
+        mysqlConexion.query('INSERT INTO user(unique_id,name,lastname,email,encryted_password,salt,created_at,update_at,role) VALUES (?,?,?,?,?,?,NOW(),NOW(),?)', [uid,name,lastname,email,password,salt,role], function(err,result,fields){
             mysqlConexion.on('error', function(err){
                 console.log('[MySQL ERROR]', err);
                 res.json('register error: ', err)
@@ -103,3 +131,5 @@ function saltHashPassword(userPassword){
     var passwordData = sha512(userPassword, salt);
     return passwordData;
 }
+
+

@@ -3,17 +3,12 @@ const express = require('express');
 const router = express.Router();
 const authorize = require('../_helpers/authorize')
 // Require the controllers WHICH WE DID NOT CREATE YET!!
-const client_controller = require('../controller/appController');
+const user_controller = require('../controller/userController');
 
 
 // a simple test url to check that all of our files are communicating correctly.
-router.get('/test',authorize('admin'), client_controller.test);
+router.get('/test', user_controller.test);
 //login route
-router.post('/login', client_controller.login);
-//register route
-router.post('/register', client_controller.register);
-
-
 
 
 module.exports = router;

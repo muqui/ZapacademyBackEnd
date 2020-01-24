@@ -14,15 +14,7 @@ exports.beneficiario = function (req, res) {
         
         if(result && result.length){
             console.log("Resultado " + result[0].email);
-            
-            
-           
-           
-           
-           
                 res.end(JSON.stringify(result[0])) // if password is true return all info of user.
-           
-                 
         }
        
     else{
@@ -31,7 +23,7 @@ exports.beneficiario = function (req, res) {
         
     }    
 });
-  //  res.send('beneficiario     !!!!!!!!!!!!!!!!!' + req.params.curp);
+ 
 };
 
 exports.create =   async function (req, res) {
@@ -39,7 +31,7 @@ exports.create =   async function (req, res) {
 
     var CURP = post_data.curp;
     var nombre = post_data.nombre;
-    var apellido_paterno = post_data.apellido_materno;
+    var apellido_paterno = post_data.apellido_paterno;
     var apellido_materno = post_data.apellido_materno;
     var sexo = post_data.sexo;
     var calle = post_data.calle;
@@ -63,8 +55,9 @@ exports.create =   async function (req, res) {
         if(result && result.length)
         res.json('Beneficiario alredy exists!!!')
     else{
-      
-        mysqlConexion.query('INSERT INTO beneficiario(CURP,nombre,apellido_paterno,apellido_materno,sexo,calle,numero_int,numero_ext,cp,colonia,municipio,estado,telefono,celular) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [CURP,nombre,apellido_paterno,apellido_materno,sexo,calle,numero_int,numero_ext,cp,colonia,municipio,estado,telefono,celular], function(err,result,fields){
+        const id = req.session.user_id ;
+        console.log('RECUPEAR SESSION ID = ', id);
+        mysqlConexion.query('INSERT INTO beneficiary(CURP,nombre,apellido_paterno,apellido_materno,sexo,calle,numero_int,numero_ext,codigo,colonia,municipio,estado,telefono,celular,user_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [CURP,nombre,apellido_paterno,apellido_materno,sexo,calle,numero_int,numero_ext,cp,colonia,municipio,estado,telefono,celular,id], function(err,result,fields){
             mysqlConexion.on('error', function(err){
                 console.log('[MySQL ERROR]', err);
                 res.json('register error: ', err)
