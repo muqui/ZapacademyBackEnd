@@ -7,7 +7,7 @@ const client_controller = require('../controller/appController');
 
 
 // a simple test url to check that all of our files are communicating correctly.
-router.get('/test',authorize('admin'), client_controller.test);
+router.get('/test', client_controller.test);
 //login route
 router.post('/login', client_controller.login);
 //register route

@@ -31,8 +31,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 // global error handler
 app.use(errorHandler);
-app.use("/", routeLogin);
 app.use("/beneficiario/", routeBeneficiario);
+app.use("/", routeLogin);
+
 app.use("/usuario/", routeUser);
 app.use("/evento/", routeUser);
  
