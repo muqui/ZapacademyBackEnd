@@ -6,7 +6,7 @@ var pool = mysql.createPool({
     user     : 'uxyw1knbrsy0eksa',
     password : 'pt6CIZ7XJbjFpukgfwjK',
     database : 'bu4pcx41i9rxsnguus2p'
-    
+    // mysql -h bu4pcx41i9rxsnguus2p-mysql.services.clever-cloud.com -u uxyw1knbrsy0eksa -ppt6CIZ7XJbjFpukgfwjK bu4pcx41i9rxsnguus2p
 /*
    host     : 'localhost',
    user     : 'root',

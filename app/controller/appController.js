@@ -1,4 +1,3 @@
-
 var crypto = require('crypto');
 var uuid = require('uuid');
 const jwt = require('jsonwebtoken');
