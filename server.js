@@ -16,7 +16,7 @@ var bodyParser = require('body-parser');
 
 const app = express();
 
-app.use(session({resave: true, saveUninitialized: true, secret: 'XCR3rsasa%RDHHH', cookie: { maxAge: 60000 }}));
+app.use(session({secret: "Shh, its a secret!"}));
 
 //Routes
 var routeLogin = require('./app/routes/approutes'); //importing route

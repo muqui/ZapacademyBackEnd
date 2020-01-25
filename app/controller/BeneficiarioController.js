@@ -28,7 +28,7 @@ exports.beneficiario = function (req, res) {
 
 exports.create =   async function (req, res) {
     var post_data = req.body;
-
+   
     var CURP = post_data.curp;
     var nombre = post_data.nombre;
     var apellido_paterno = post_data.apellido_paterno;
@@ -44,7 +44,7 @@ exports.create =   async function (req, res) {
     var telefono = post_data.telefono;
     var celular = post_data.celular;
 
-    
+    console.log("Curp =" + req.body.curp);
    
     mysqlConexion.query('SELECT * FROM beneficiary where CURP =?' ,[CURP], function(err,result,fields){
         mysqlConexion.on('error', function(err){
@@ -57,9 +57,9 @@ exports.create =   async function (req, res) {
     else{
         const id = req.session.user_id ;
         console.log('RECUPEAR SESSION ID = ', id);
-     //          const sql = "INSERT INTO beneficiary(CURP,nombre,apellido_paterno,apellido_materno,sexo,calle,numero_ext,numero_int,codigo,colonia,municipio,estado,telefono,celular, user_id) VALUES ('CODA920508MJCNZL00','Diana','Prince','De Themyscira','MUJER','AGUA FRIA','8',NULL,45180,'AGUA FRIA','ZAPOPAN','JALISCO',NULL,'3312121200', 1)";
-   //     mysqlConexion.query( sql, function(err,result,fields){
-     mysqlConexion.query("INSERT INTO beneficiary(CURP,nombre,apellido_paterno,apellido_materno,sexo,calle,numero_ext,numero_int,codigo,colonia,municipio,estado,telefono,celular, user_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
+       //      const sql = "INSERT INTO beneficiary(CURP,nombre,apellido_paterno,apellido_materno,sexo,calle,numero_ext,numero_int,codigo,colonia,municipio,estado,telefono,celular, user_id) VALUES ('CONA','nombre','Prince','De Themyscira','MUJER','AGUA FRIA','8',NULL,45180,'AGUA FRIA','ZAPOPAN','JALISCO',NULL,'3312121200', ?)";
+     //mysqlConexion.query( sql, [id],function(err,result,fields){
+     mysqlConexion.query('INSERT INTO beneficiary(CURP,nombre,apellido_paterno,apellido_materno,sexo,calle,numero_ext,numero_int,codigo,colonia,municipio,estado,telefono,celular, user_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', 
                                                  [CURP,nombre,apellido_paterno,apellido_materno,sexo,calle,numero_ext,numero_int,codigo,colonia,municipio,estado,telefono,celular,id], function(err,result,fields){
         mysqlConexion.on('error', function(err){
                 console.log('[MySQL ERROR]', err);

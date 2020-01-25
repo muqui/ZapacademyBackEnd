@@ -2,6 +2,10 @@
   "name": "asistencia",
   "version": "1.0.0",
   "main": "server.js",
+  "engines": {
+    "node": "12.14.1",
+    "npm": "6.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -10,9 +10,10 @@ var pool = mysql.createPool({
 /*
    host     : 'localhost',
    user     : 'root',
-   password : 'Fedora12$',
+   password : 'Fedora12',
    database : 'bu4pcx41i9rxsnguus2p'
    */
+   
 })
 pool.getConnection((err, connection) => {
     if (err) {
