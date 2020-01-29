@@ -40,3 +40,21 @@ exports.beneficiario =   async function (req, res) {
             res.json('Register success');
         })
 };
+
+exports.notificacion =   async function (req, res) {  //registra cunado se hace una notificacion al beneficiario.
+    var post_data = req.body;
+
+    var fecha = post_data.fecha;
+    var event_id =  post_data.event_id;
+    var user_id = post_data.user_id;
+    var beneficiary_id = post_data.beneficiary_id; 
+        const id = req.session.user_id ;
+        console.log('RECUPEAR SESSION ID = ', id);
+        mysqlConexion.query('INSERT INTO notice(fecha, event_id, user_id, beneficiary_id) VALUES (?,?,?,?)', [fecha,event_id,user_id, beneficiary_id, ], function(err,result,fields){
+            mysqlConexion.on('error', function(err){
+                console.log('[MySQL ERROR]', err);
+                res.json('register error: ', err)
+            });
+            res.json('Register success');
+        })
+};
