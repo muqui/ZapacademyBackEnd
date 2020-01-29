@@ -13,5 +13,5 @@ router.get('/test', event_controller.test);
 router.post('/',authorize(), event_controller.create);  // Crea un evento
 router.post('/beneficiario',authorize(), event_controller.beneficiario);  //Asigna beneficiarios a un evento  Relacion muchos a muchos
 router.post('/notificacion',authorize(), event_controller.notificacion);  //Asigna beneficiarios a un evento  Relacion muchos a muchos
-
+router.post('/asistencia',authorize(), event_controller.asistencia);  //Asigna beneficiarios a un evento  Relacion muchos a muchos
 module.exports = router;
