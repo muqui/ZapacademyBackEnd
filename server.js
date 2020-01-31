@@ -22,7 +22,7 @@ app.use(session({secret: "Shh, its a secret!"}));
 var routeLogin = require('./app/routes/approutes'); //importing route
 var routeBeneficiario = require('./app/routes/beneficiarioroute'); //Ruta beneficiario
 var routeUser = require('./app/routes/userroute'); //Ruta usuarios.
-var routeUser = require('./app/routes/eventRoute'); //Ruta eventos.
+var routeEvent = require('./app/routes/eventRoute'); //Ruta eventos.
 
 // serve files from the public directory
 app.use(express.static('public'));
@@ -35,7 +35,7 @@ app.use("/beneficiario/", routeBeneficiario);
 app.use("/", routeLogin);
 
 app.use("/usuario/", routeUser);
-app.use("/evento/", routeUser);
+app.use("/evento/", routeEvent);
  
 http.createServer(app).listen(PORT, () => {
     console.log("App is running on port " + PORT);
