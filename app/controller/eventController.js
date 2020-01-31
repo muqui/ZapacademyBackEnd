@@ -101,3 +101,17 @@ exports.beneficiarios =   async function (req, res) {  // regresa lista  de even
            res.end(JSON.stringify(result)) ;
         })
 };
+
+exports.listaEventos =   async function (req, res) {  // regresa una lista con los eventos vigentes
+    var evento = req.params.evento;
+       // const id = req.session.user_id ;
+       // console.log('RECUPEAR SESSION ID = ', id);
+        mysqlConexion.query('select * from event where fechaInicio > now()', [evento ], function(err,result,fields){
+            mysqlConexion.on('error', function(err){
+                console.log('[MySQL ERROR]', err);
+                res.json('register error: ', err)
+            });
+          //  res.end(JSON(result)) ;
+           res.end(JSON.stringify(result)) ;
+        })
+};

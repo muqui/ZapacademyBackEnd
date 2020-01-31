@@ -15,6 +15,7 @@ router.post('/beneficiario',authorize(), event_controller.beneficiario);  //Asig
 router.post('/notificacion',authorize(), event_controller.notificacion);  //Asigna beneficiarios a un evento  Relacion muchos a muchos
 router.post('/asistencia',authorize(), event_controller.asistencia);  //Asigna beneficiarios a un evento  Relacion muchos a muchos
 router.get('/eventos/:evento',authorize(), event_controller.eventos);  //Regrasa lista con los beneficiarios de un evento
+router.get('/eventos/',authorize(), event_controller.listaEventos);  //Regresa uns lista con todos los eventos vigentes.
 router.get('/beneficiarios/:evento',authorize(), event_controller.beneficiarios);  //Regrasa lista de eventos de un beneficiario.
 
 module.exports = router;
