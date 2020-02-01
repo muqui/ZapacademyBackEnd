@@ -117,7 +117,8 @@ exports.beneficiarioCurpEvento = function (req, res) {
     var curp = req.params.curp;  //recibe la CURP del Beneficiario
     var evento = req.params.evento;  // recibe el id de evento
     
-
+    console.log('curp =', curp);
+    console.log('evento= ', evento);
     mysqlConexion.query('select b.* from beneficiary as b JOIN beneficiaryEvent as be ON b.id = be.beneficiary_id  JOIN event as e ON e.id = be.event_id where e.id = ? and b.CURP = ?', [evento, curp ], function(err,result,fields){
         mysqlConexion.on('error', function(err){
             console.log('[MySQL ERROR]', err);
