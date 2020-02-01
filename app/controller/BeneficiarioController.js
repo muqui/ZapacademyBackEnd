@@ -106,3 +106,22 @@ exports.lista = function (req, res) {
 });
  
 };
+
+
+//Regresa beneficiario si esta en la lista del eventa para registrar asistencia
+exports.beneficiarioCurpEvento = function (req, res) {
+    var curp = req.params.curp;  //recibe el id  del Beneficiario
+    var evento = req.params.evento;  // recibe el id de evento
+    
+
+    mysqlConexion.query('select b.* from beneficiary as b JOIN beneficiaryEvent as be ON b.id = be.beneficiary_id  JOIN event as e ON e.id = be.event_id where e.id = ? and b.id = ?', [evento, curp ], function(err,result,fields){
+        mysqlConexion.on('error', function(err){
+            console.log('[MySQL ERROR]', err);
+            res.json('register error: ', err)
+        });
+      //  res.end(JSON(result)) ;
+       res.end(JSON.stringify(result)) ;
+    })
+
+ 
+};

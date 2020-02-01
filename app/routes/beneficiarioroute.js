@@ -15,6 +15,8 @@ router.post('/',authorize(), beneficiario_controller.create);
 router.get('/:curp',authorize(), beneficiario_controller.beneficiario);
 //Regresa lista de beneficiarios 
 router.get('/lista/:filtro', authorize(), beneficiario_controller.lista);
+//Regresa  1 benificiario si esta en la lista de evento a firmar asisitencia.
+router.get('/:curp/:evento', authorize(), beneficiario_controller.beneficiarioCurpEvento);
 
 
 module.exports = router;
