@@ -66,8 +66,17 @@ exports.asistencia =   async function (req, res) {  //registra asistencia del be
     var user_id = post_data.user_id;
     var beneficiary_id = post_data.beneficiary_id; 
     var imagen = post_data.imagen;
-    //    const id = req.session.user_id ;
-    //    console.log('RECUPEAR SESSION ID = ', id);
+    //Comprueba asistencia
+    mysqlConexion.query('select * from attendance where event_id = ? and beneficiary_id = ?' ,[event_id,beneficiary_id], function(err,result,fields){
+        mysqlConexion.on('error', function(err){
+            console.log('[MySQL ERROR]', err);
+        });
+    
+        
+        if(result && result.length)
+        res.json('User alredy exists!!!')
+    else{
+         
         mysqlConexion.query('INSERT INTO attendance(status, fecha, event_id, user_id, beneficiary_id, imagen) VALUES (?,?,?,?,?,?)', [status, fecha,event_id,user_id, beneficiary_id, imagen], function(err,result,fields){
             mysqlConexion.on('error', function(err){
                 console.log('[MySQL ERROR]', err);
@@ -75,6 +84,16 @@ exports.asistencia =   async function (req, res) {  //registra asistencia del be
             });
             res.json('Register success');
         })
+      
+   
+       
+    }    
+});
+   
+
+
+
+    
 };
 exports.eventos =   async function (req, res) {  // regresa lista con los beneficiarios de un evento.
     var evento = req.params.evento;
