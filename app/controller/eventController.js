@@ -74,7 +74,7 @@ exports.asistencia =   async function (req, res) {  //registra asistencia del be
     
         
         if(result && result.length)
-        res.json('User alredy exists!!!')
+        res.json('exists')
     else{
          
         mysqlConexion.query('INSERT INTO attendance(status, fecha, event_id, user_id, beneficiary_id, imagen) VALUES (?,?,?,?,?,?)', [status, fecha,event_id,user_id, beneficiary_id, imagen], function(err,result,fields){
