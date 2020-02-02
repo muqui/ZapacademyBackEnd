@@ -17,5 +17,6 @@ router.post('/asistencia',authorize(), event_controller.asistencia);  //Asigna b
 router.get('/eventos/:evento',authorize(), event_controller.eventos);  //Regrasa lista con los beneficiarios de un evento
 router.get('/eventos/',authorize(), event_controller.listaEventos);  //Regresa uns lista con todos los eventos vigentes.
 router.get('/beneficiarios/:evento',authorize(), event_controller.beneficiarios);  //Regrasa lista de eventos de un beneficiario.
+router.post('/asistencia/verificar',authorize(), event_controller.validarAsistencia);  //Valida asistencia del beneficiario.
 
 module.exports = router;

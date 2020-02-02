@@ -135,3 +135,22 @@ exports.listaEventos =   async function (req, res) {  // regresa una lista con l
            res.end(JSON.stringify(result)) ;
         })
 };
+
+
+exports.validarAsistencia =   async function (req, res) {  //registra asistencia del beneficiario al evento.
+    var post_data = req.body;
+    var event_id =  post_data.event_id;
+    var beneficiary_id = post_data.beneficiary_id; 
+    
+    //Comprueba asistencia
+    mysqlConexion.query('select * from attendance where event_id = ? and beneficiary_id = ?' ,[event_id,beneficiary_id], function(err,result,fields){
+        mysqlConexion.on('error', function(err){
+            console.log('[MySQL ERROR]', err);
+        });       
+        if(result && result.length)
+        res.json('exists') 
+        else
+        res.json('no_exists')
+
+});    
+};
