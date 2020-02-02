@@ -65,9 +65,10 @@ exports.asistencia =   async function (req, res) {  //registra asistencia del be
     var event_id =  post_data.event_id;
     var user_id = post_data.user_id;
     var beneficiary_id = post_data.beneficiary_id; 
-        const id = req.session.user_id ;
-        console.log('RECUPEAR SESSION ID = ', id);
-        mysqlConexion.query('INSERT INTO attendance(status, fecha, event_id, user_id, beneficiary_id) VALUES (?,?,?,?,?)', [status, fecha,event_id,user_id, beneficiary_id, ], function(err,result,fields){
+    var imagen = post_data.imagen;
+    //    const id = req.session.user_id ;
+    //    console.log('RECUPEAR SESSION ID = ', id);
+        mysqlConexion.query('INSERT INTO attendance(status, fecha, event_id, user_id, beneficiary_id, imagen) VALUES (?,?,?,?,?,?)', [status, fecha,event_id,user_id, beneficiary_id, imagen], function(err,result,fields){
             mysqlConexion.on('error', function(err){
                 console.log('[MySQL ERROR]', err);
                 res.json('register error: ', err)
