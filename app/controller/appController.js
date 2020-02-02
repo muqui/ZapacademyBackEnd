@@ -57,12 +57,14 @@ exports.login =   async function (req, res) {
                
                // res.end(JSON.stringify(result[0].token)) // if password is true return all info of user.
             else
-                res.end(JSON.stringify('Wrong password '));    
+            res.json({ });
+            
+                //res.end(JSON.stringify('Wrong password '));    
         }
        
     else{
       
-       res.json('User not exist');
+        res.json({ });
         
     }    
 });
