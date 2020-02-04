@@ -99,7 +99,7 @@ exports.eventos =   async function (req, res) {  // regresa lista con los benefi
     var evento = req.params.evento;
        // const id = req.session.user_id ;
        // console.log('RECUPEAR SESSION ID = ', id);
-        mysqlConexion.query('select b.nombre from beneficiary as b JOIN beneficiaryEvent as be ON b.id = be.beneficiary_id  JOIN event as e ON e.id = be.event_id where e.id = ?', [evento ], function(err,result,fields){
+        mysqlConexion.query('select b.* from beneficiary as b JOIN beneficiaryEvent as be ON b.id = be.beneficiary_id  JOIN event as e ON e.id = be.event_id where e.id = ?', [evento ], function(err,result,fields){
             mysqlConexion.on('error', function(err){
                 console.log('[MySQL ERROR]', err);
                 res.json('register error: ', err)
