@@ -74,6 +74,7 @@ exports.create =   async function (req, res) {
 };
 
 //Regresa lista de beneficiarios
+/*
 exports.lista = function (req, res) {
     //select * from beneficiario where CURP LIKE '%nAVARRo%' OR nombre LIKE '%Navarro%' OR apellido_paterno LIKE '%Navarro%' OR apellido_materno LIKE '%navarro%';
 
@@ -106,7 +107,7 @@ exports.lista = function (req, res) {
 });
  
 };
-
+*/
 
 /*
 Regresa beneficiario si esta en la lista del eventa para registrar asistencia

@@ -14,7 +14,7 @@ router.post('/',authorize(), beneficiario_controller.create);
 // Regresa 1 beneficiario
 router.get('/:curp',authorize(), beneficiario_controller.beneficiario);
 //Regresa lista de beneficiarios 
-router.get('/lista/:filtro', authorize(), beneficiario_controller.lista);
+//router.get('/lista/:filtro', authorize(), beneficiario_controller.lista);
 //Regresa  1 benificiario si esta en la lista de evento a firmar asisitencia.
 router.get('/:curp/:evento', authorize(), beneficiario_controller.beneficiarioCurpEvento);
 //Regresa lista de beneficiarios si esta en la lista del evento a firmar asistencia
