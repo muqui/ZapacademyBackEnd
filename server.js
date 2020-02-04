@@ -24,10 +24,15 @@ var routeBeneficiario = require('./app/routes/beneficiarioroute'); //Ruta benefi
 var routeUser = require('./app/routes/userroute'); //Ruta usuarios.
 var routeEvent = require('./app/routes/eventRoute'); //Ruta eventos.
 
+app.all('*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
 // serve files from the public directory
 app.use(express.static('public'));
 app.use(bodyParser.json());  
-//app.use(cors());
+app.use(cors());
 app.use(bodyParser.urlencoded());
 // global error handler
 app.use(errorHandler);
