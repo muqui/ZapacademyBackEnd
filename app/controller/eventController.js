@@ -8,47 +8,72 @@ exports.test = function (req, res) {
 };
 
 exports.create =   async function (req, res) {
+    //await sleep(1000);
     var post_data = req.body;
-
+    var idx ;
     var fecha_inicio = post_data.fecha_inicio;
     var fecha_fin =  post_data.fecha_fin;
     var nombre = post_data.nombre; 
     var id = post_data.id;
        // const id = req.session.user_id ;
         console.log('RECUPEAR SESSION ID = ', id);
-        mysqlConexion.query('INSERT INTO event(fechaInicio, fechafin, nombre, user_id) VALUES (?,?,?,?)', [fecha_inicio,fecha_fin, nombre, id], function(err,result,fields){
+        await mysqlConexion.query('INSERT INTO event(fechaInicio, fechafin, nombre, user_id) VALUES (?,?,?,?)', [fecha_inicio,fecha_fin, nombre, id], function(err,resultG,fields){
             mysqlConexion.on('error', function(err){
                 console.log('[MySQL ERROR]', err);
                 res.json('register error: ', err)
             });
-            console.log("Employee Id:- " + result.insertId);
-            const idx =  result.insertId;
-            if(result && result.length)
-            res.json('User alredy exists!!!')
-        else{
-          
-            mysqlConexion.query('select id from beneficiary', function(err,result,fields){
-                mysqlConexion.on('error', function(err){
-                    console.log('[MySQL ERROR]', err);
-                    res.json('register error: ', err)
-                });
-                for(var attributename in result){
-                    console.log(attributename+": "+ result[attributename].id + " Id  "+ idx);
-                    mysqlConexion.query('INSERT INTO beneficiaryEvent(beneficiary_id, event_id) VALUES (?,?)', [result[attributename].id ,idx], function(err,result,fields){
-                        mysqlConexion.on('error', function(err){
-                            console.log('[MySQL ERROR]', err);
-                            res.json('register error: ', err)
-                        });
-                      //  res.json('Register success');
-                    })
-                   // console.log(attributename+": "+ );
+            //console.log("Employee Id:- " + result.insertId);
+            
+            
+               /*
                 
-                }
-                res.json('Register success');
-            })
-           
-        }  
+                    mysqlConexion.query('select id from beneficiary', function(err,resultB,fields){
+                    mysqlConexion.on('error', function(err){
+                        console.log('[MySQL ERROR]', err);
+                        res.json('register error: ', err)
+                    });
+                    for(var attributename in resultB){
+                        const idx =  resultG.insertId;
+                       console.log(attributename+": "+ resultB[attributename].id + " Id  "+ fields[0].identity);
+                         mysqlConexion.query('INSERT INTO beneficiaryEvent(beneficiary_id, event_id) VALUES (?,?)', [resultB[attributename].id ,idx], function(err,result,fields){
+                            mysqlConexion.on('error', function(err){
+                                console.log('[MySQL ERROR]', err);
+                                res.json('register error: ', err)
+                            });
+                          
+                        })
+                     
+                    
+                    }
+                  
+                })
+
+            */
+            mysqlConexion.query('select id from beneficiary', function(err,resultB,fields){
+            mysqlConexion.on('error', function(err){
+                console.log('[MySQL ERROR]', err);
+                res.json('register error: ', err)
+            });
+            for(var attributename in resultB){
+               
+               console.log(attributename+": "+ resultB[attributename].id + " Id  "+ idx);
+                 mysqlConexion.query('INSERT INTO beneficiaryEvent(beneficiary_id, event_id) VALUES (?,?)', [resultB[attributename].id ,idx], function(err,result,fields){
+                    mysqlConexion.on('error', function(err){
+                        console.log('[MySQL ERROR]', err);
+                        res.json('register error: ', err)
+                    });
+                  
+                })
+             
+            
+            }
+          
         })
+           idx =  resultG.insertId;
+            res.json(resultG.insertId)
+      
+        })
+  
         
 };
 
@@ -182,3 +207,10 @@ exports.validarAsistencia =   async function (req, res) {  //registra asistencia
 
 });    
 };
+
+
+function sleep(ms) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+  }
