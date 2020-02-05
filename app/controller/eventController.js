@@ -13,7 +13,8 @@ exports.create =   async function (req, res) {
     var fecha_inicio = post_data.fecha_inicio;
     var fecha_fin =  post_data.fecha_fin;
     var nombre = post_data.nombre; 
-        const id = req.session.user_id ;
+    var id = post_data.id;
+       // const id = req.session.user_id ;
         console.log('RECUPEAR SESSION ID = ', id);
         mysqlConexion.query('INSERT INTO event(fechaInicio, fechafin, nombre, user_id) VALUES (?,?,?,?)', [fecha_inicio,fecha_fin, nombre, id], function(err,result,fields){
             mysqlConexion.on('error', function(err){
