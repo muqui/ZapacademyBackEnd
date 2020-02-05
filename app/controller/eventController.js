@@ -21,8 +21,35 @@ exports.create =   async function (req, res) {
                 console.log('[MySQL ERROR]', err);
                 res.json('register error: ', err)
             });
-            res.json('Register success');
+            console.log("Employee Id:- " + result.insertId);
+            const idx =  result.insertId;
+            if(result && result.length)
+            res.json('User alredy exists!!!')
+        else{
+          
+            mysqlConexion.query('select id from beneficiary', function(err,result,fields){
+                mysqlConexion.on('error', function(err){
+                    console.log('[MySQL ERROR]', err);
+                    res.json('register error: ', err)
+                });
+                for(var attributename in result){
+                    console.log(attributename+": "+ result[attributename].id + " Id  "+ idx);
+                    mysqlConexion.query('INSERT INTO beneficiaryEvent(beneficiary_id, event_id) VALUES (?,?)', [result[attributename].id ,idx], function(err,result,fields){
+                        mysqlConexion.on('error', function(err){
+                            console.log('[MySQL ERROR]', err);
+                            res.json('register error: ', err)
+                        });
+                      //  res.json('Register success');
+                    })
+                   // console.log(attributename+": "+ );
+                
+                }
+                res.json('Register success');
+            })
+           
+        }  
         })
+        
 };
 
 exports.beneficiario =   async function (req, res) {
