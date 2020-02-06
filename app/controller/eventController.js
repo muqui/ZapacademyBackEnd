@@ -1,11 +1,14 @@
 // Conexion a mysql
 const mysqlConexion = require('../model/db');
+const fileUpload = require('express-fileupload');
 
 
 //Simple version, without validation or sanitation
 exports.test = function (req, res) {
     res.send('Greetings from the Test controller!');
 };
+
+
 
 exports.create =   async function (req, res) {
     //await sleep(1000);
@@ -214,3 +217,33 @@ function sleep(ms) {
       setTimeout(resolve, ms);
     });
   }
+
+  exports.evidencia = function (req, res) {
+    try {
+        if(!req.files) {
+            res.send({
+                status: false,
+                message: 'No file uploaded'
+            });
+        } else {
+            //Use the name of the input field (i.e. "avatar") to retrieve the uploaded file
+            let avatar = req.files.avatar;
+            
+            //Use the mv() method to place the file in upload directory (i.e. "uploads")
+           // avatar.mv('./uploads/' + avatar.name);
+           avatar.mv('./public/data/' + avatar.name);
+            //send response
+            res.send({
+                status: true,
+                message: 'File is uploaded',
+                data: {
+                    name: avatar.name,
+                    mimetype: avatar.mimetype,
+                    size: avatar.size
+                }
+            });
+        }
+    } catch (err) {
+        res.status(500).send(err);
+    }
+};
