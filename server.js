@@ -33,7 +33,7 @@ app.all('*', function(req, res, next) {
   next();
 });
 // serve files from the public directory
-app.use(express.static('uploads'));
+app.use(express.static('public/data'));
 // enable files upload
 app.use(fileUpload({
   createParentPath: true
