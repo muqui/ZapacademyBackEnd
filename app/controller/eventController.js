@@ -233,16 +233,16 @@ function sleep(ms) {
            // avatar.mv('./uploads/' + avatar.name);
            avatar.mv('./public/data/' + avatar.name);
             //send response
-            res.send('success');
-            //res.send({
-               // status: true,
-                message: 'File is uploaded'
-              //  data: {
-              //      name: avatar.name,
-              //      mimetype: avatar.mimetype,
-              //      size: avatar.size
-               // }
-          //  });
+            //res.send('success');
+            res.send({
+                status: true,
+                message: 'File is uploaded',
+                data: {
+                    name: avatar.name,
+                    mimetype: avatar.mimetype,
+                    size: avatar.size
+                }
+            });
         }
     } catch (err) {
         res.status(500).send(err);
