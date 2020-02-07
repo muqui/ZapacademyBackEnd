@@ -234,6 +234,7 @@ function sleep(ms) {
            avatar.mv('./public/data/' + avatar.name);
             //send response
             //res.send('success');
+            console.log('nOMBRE E= ', avatar.name);
             res.send({
                 status: true,
                 message: 'File is uploaded',
