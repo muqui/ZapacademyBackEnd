@@ -1,7 +1,7 @@
 // Conexion a mysql
 const mysqlConexion = require('../model/db');
 const fileUpload = require('express-fileupload');
-
+moment = require('moment');
 
 //Simple version, without validation or sanitation
 exports.test = function (req, res) {
@@ -118,8 +118,10 @@ exports.notificacion =   async function (req, res) {  //registra cunado se hace 
 };
 exports.asistencia =   async function (req, res) {  //registra asistencia del beneficiario al evento.
     var post_data = req.body;
-    var status = post_data.status;
-    var fecha = post_data.fecha;
+   // var status = post_data.status;
+   var status = 1;
+   // var fecha = post_data.fecha;
+   var fecha = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
     var event_id =  post_data.event_id;
     var user_id = post_data.user_id;
     var beneficiary_id = post_data.beneficiary_id; 
@@ -135,7 +137,7 @@ exports.asistencia =   async function (req, res) {  //registra asistencia del be
         res.json('exists')
     else{
          
-        mysqlConexion.query('INSERT INTO attendance(status, fecha, event_id, user_id, beneficiary_id, imagen) VALUES (?,?,?,?,?,?)', [status, fecha,event_id,user_id, beneficiary_id, imagen], function(err,result,fields){
+        mysqlConexion.query('INSERT INTO attendance(status, fecha , event_id, user_id, beneficiary_id, imagen) VALUES (?,?,?,?,?,?)', [status,fecha,event_id,user_id, beneficiary_id, imagen], function(err,result,fields){
             mysqlConexion.on('error', function(err){
                 console.log('[MySQL ERROR]', err);
                 res.json('register error: ', err)
@@ -157,7 +159,7 @@ exports.eventos =   async function (req, res) {  // regresa lista con los benefi
     var evento = req.params.evento;
        // const id = req.session.user_id ;
        // console.log('RECUPEAR SESSION ID = ', id);
-        mysqlConexion.query('select b.*, a.* from beneficiary as b JOIN beneficiaryEvent as be ON b.id = be.beneficiary_id  JOIN event as e ON e.id = be.event_id left join attendance as a on be.beneficiary_id = a.beneficiary_id where e.id = ?', [evento ], function(err,result,fields){
+        mysqlConexion.query('select  b.*, a.status, a.fecha, a.imagen from beneficiary as b  left JOIN beneficiaryEvent as be ON b.id = be.beneficiary_id   JOIN event as e ON e.id = be.event_id  left join attendance as a ON be.event_id = a.event_id  and be.beneficiary_id = a.beneficiary_id where e.id = ?', [evento ], function(err,result,fields){
             mysqlConexion.on('error', function(err){
                 console.log('[MySQL ERROR]', err);
                 res.json('register error: ', err)
