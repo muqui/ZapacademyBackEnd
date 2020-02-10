@@ -127,7 +127,10 @@ exports.beneficiarioCurpEvento = function (req, res) {
         });
       
       // res.end(JSON.stringify(result)) ;
+      if(result)
       res.end(JSON.stringify(result[0])) 
+      else
+      res.json({ });
     })
 
  
