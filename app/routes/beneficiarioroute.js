@@ -19,6 +19,7 @@ router.get('/:curp',authorize(), beneficiario_controller.beneficiario);
 router.get('/:curp/:evento', authorize(), beneficiario_controller.beneficiarioCurpEvento);
 //Regresa lista de beneficiarios si esta en la lista del evento a firmar asistencia
 router.get('/lista/:filtro/:evento', authorize(), beneficiario_controller.beneficiarioCurpEventoLista);
+router.get('/listadatos/:nombre/:primerapellido/:segundoapellido/:evento', authorize(), beneficiario_controller.beneficiarioDatosEventoLista);
 
 
 

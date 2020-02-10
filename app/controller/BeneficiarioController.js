@@ -137,6 +137,7 @@ exports.beneficiarioCurpEvento = function (req, res) {
 /*
 Regresa Lista beneficiario si esta en la lista del eventa para registrar asistencia
 Campos recibidos : curp del beneficiario, id del evento
+La busqueda se realiza con la curp del beneficiario.
 */
 
 exports.beneficiarioCurpEventoLista = function (req, res) {
@@ -146,6 +147,32 @@ exports.beneficiarioCurpEventoLista = function (req, res) {
     console.log('curp =',curp);
     console.log('evento= ',evento);
     mysqlConexion.query("select b.* from beneficiary as b JOIN beneficiaryEvent as be ON b.id = be.beneficiary_id  JOIN event as e ON e.id = be.event_id where e.id = ? and b.CURP LIKE CONCAT('%', ?,  '%')", [evento, curp ], function(err,result,fields){
+        mysqlConexion.on('error', function(err){
+            console.log('[MySQL ERROR]', err);
+            res.json('register error: ', err)
+        });
+      
+        res.end(JSON.stringify(result)) 
+    })
+
+ 
+};
+
+//select b.* from beneficiary as b JOIN beneficiaryEvent as be ON b.id = be.beneficiary_id  JOIN event as e ON e.id = be.event_id where e.id = 1 or b.nombre like '%Diana%' or b.apellido_paterno like '%Prince%' or b.apellido_materno like '%Corona%';
+/*
+Regresa Lista de  beneficiario si esta en la lista del eventa para registrar asistencia
+Campos recibidos : id del evento, nombre, primer apellido, segundo apellido.
+La busqueda se realiza con la curp del beneficiario.
+*/
+
+exports.beneficiarioDatosEventoLista = function (req, res) {
+    var nombre = req.params.nombre;  //recibe nombre del Beneficiario
+    var primerApellido = req.params.primerapellido;  //recibe nombre del Beneficiario
+    var segundoApellido = req.params.segundoapellido;  //recibe nombre del Beneficiario
+    var evento = req.params.evento;  // recibe el id de evento
+    
+    
+    mysqlConexion.query("select b.* from beneficiary as b JOIN beneficiaryEvent as be ON b.id = be.beneficiary_id  JOIN event as e ON e.id = be.event_id where e.id = ? and b.nombre like CONCAT('%', ?,  '%') and b.apellido_paterno like CONCAT('%', ?,  '%') and b.apellido_materno like CONCAT('%', ?,  '%')", [evento, nombre, primerApellido, segundoApellido ], function(err,result,fields){
         mysqlConexion.on('error', function(err){
             console.log('[MySQL ERROR]', err);
             res.json('register error: ', err)
