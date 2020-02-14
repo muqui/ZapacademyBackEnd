@@ -17,10 +17,12 @@ exports.create =   async function (req, res) {
     var fecha_inicio = post_data.fecha_inicio;
     var fecha_fin =  post_data.fecha_fin;
     var nombre = post_data.nombre; 
+    var lugar = post_data.lugar; 
     var id = post_data.id;
        // const id = req.session.user_id ;
         console.log('RECUPEAR SESSION ID = ', id);
-        await mysqlConexion.query('INSERT INTO event(fechaInicio, fechafin, nombre, user_id) VALUES (?,?,?,?)', [fecha_inicio,fecha_fin, nombre, id], function(err,resultG,fields){
+        await mysqlConexion.query('INSERT INTO event(fechaInicio, fechafin, nombre, user_id, lugar ) VALUES (?,?,?,?, ?)',
+         [fecha_inicio,fecha_fin, nombre, id, lugar], function(err,resultG,fields){
             mysqlConexion.on('error', function(err){
                 console.log('[MySQL ERROR]', err);
                 res.json('register error: ', err)
@@ -28,7 +30,7 @@ exports.create =   async function (req, res) {
             //console.log("Employee Id:- " + result.insertId);
             
             
-               
+            await  const idx =  resultG.insertId;
                 
                     mysqlConexion.query('select id from beneficiary', function(err,resultB,fields){
                     mysqlConexion.on('error', function(err){
@@ -36,7 +38,7 @@ exports.create =   async function (req, res) {
                         res.json('register error: ', err)
                     });
                     for(var attributename in resultB){
-                        const idx =  resultG.insertId;
+                       
                        console.log(attributename+": "+ resultB[attributename].id + " Id  "+ idx);
                          mysqlConexion.query('INSERT INTO beneficiaryEvent(beneficiary_id, event_id) VALUES (?,?)', [resultB[attributename].id ,idx], function(err,result,fields){
                             mysqlConexion.on('error', function(err){
@@ -52,28 +54,7 @@ exports.create =   async function (req, res) {
                 })
 
             
-           /*
-             mysqlConexion.query('select id from beneficiary', function(err,resultB,fields){
-            mysqlConexion.on('error', function(err){
-                console.log('[MySQL ERROR]', err);
-                res.json('register error: ', err)
-            });
-             for(var attributename in resultB){
-               
-               console.log(attributename+": "+ resultB[attributename].id + " Id  "+ idx);
-                  mysqlConexion.query('INSERT INTO beneficiaryEvent(beneficiary_id, event_id) VALUES (?,?)', [resultB[attributename].id ,idx], function(err,result,fields){
-                    mysqlConexion.on('error', function(err){
-                        console.log('[MySQL ERROR]', err);
-                        res.json('register error: ', err)
-                    });
-                  
-                })
-             
-            
-            }
-          
-        })
-        */
+    
            idx =  resultG.insertId;
             res.json(resultG.insertId)
       
