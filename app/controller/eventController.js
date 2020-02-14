@@ -30,7 +30,7 @@ exports.create =   async function (req, res) {
             //console.log("Employee Id:- " + result.insertId);
             
             
-            await  const idx =  resultG.insertId;
+               idx =  resultG.insertId;
                 
                     mysqlConexion.query('select id from beneficiary', function(err,resultB,fields){
                     mysqlConexion.on('error', function(err){
