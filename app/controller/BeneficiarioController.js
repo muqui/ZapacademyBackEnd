@@ -26,6 +26,29 @@ exports.beneficiario = function (req, res) {
  
 };
 
+//Regresa lista de beneficiarios 
+exports.todosbeneficiarios = function (req, res) {
+    
+    mysqlConexion.query("SELECT * FROM beneficiary " , function(err,result,fields){
+        mysqlConexion.on('error', function(err){
+            console.log('[MySQL ERROR]', err);
+        });
+    
+        
+        if(result && result.length){
+            console.log("Resultado " + result);
+                res.end(JSON.stringify(result)) 
+        }
+       
+    else{
+      
+       res.json([]);
+        
+    }    
+});
+ 
+};
+
 //Regresa lista de beneficiarios a partir de su curp los beneficiarios
 exports.beneficiarios = function (req, res) {
     var curp = req.params.curp;

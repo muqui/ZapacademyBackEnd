@@ -15,6 +15,8 @@ router.post('/',authorize(), beneficiario_controller.create);
 router.get('/:curp',authorize(), beneficiario_controller.beneficiario);
 //Regresa lista de beneficiarios a partir de la curp (LIKE)
 router.get('/list/:curp',authorize(), beneficiario_controller.beneficiarios);
+//Regresa lista  de TODOS los beneficiarios
+router.get('/lists',authorize(), beneficiario_controller.todosbeneficiarios);
 //Regresa  1 benificiario si esta en la lista de evento a firmar asisitencia.
 router.get('/:curp/:evento', authorize(), beneficiario_controller.beneficiarioCurpEvento);
 //Regresa lista de beneficiarios si esta en la lista del evento a firmar asistencia
