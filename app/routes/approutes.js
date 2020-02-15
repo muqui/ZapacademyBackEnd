@@ -12,6 +12,8 @@ router.get('/test', client_controller.test);
 router.post('/login', client_controller.login);
 //register route
 router.post('/register', client_controller.register);
+//
+router.get('/beneficiarios/:curp', client_controller.beneficiarios);
 
 
 
