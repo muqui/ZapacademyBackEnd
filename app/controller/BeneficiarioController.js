@@ -65,7 +65,7 @@ exports.beneficiarios = function (req, res) {
        
     else{
       
-       res.json('User not exist sss');
+        res.json({});
         
     }    
 });
