@@ -150,10 +150,10 @@ exports.eventos =   async function (req, res) {  // regresa lista con los benefi
         })
 };
 exports.beneficiarios =   async function (req, res) {  // regresa lista  de eventos de un beneficiario.
-    var evento = req.params.evento;
+    var curp = req.params.curp;
        // const id = req.session.user_id ;
        // console.log('RECUPEAR SESSION ID = ', id);
-        mysqlConexion.query('select e.id, e.nombre as nombreEvento, b.id as id_beneficiario from event as e JOIN beneficiaryEvent as be ON e.id = be.event_id  JOIN beneficiary as b ON b.id = be.beneficiary_id where b.id = ?', [evento ], function(err,result,fields){
+        mysqlConexion.query('select e.id, e.nombre as nombreEvento,e.lugar, e.fechaInicio, e.fechaFin, b.id as id_beneficiario from event as e JOIN beneficiaryEvent as be ON e.id = be.event_id  JOIN beneficiary as b ON b.id = be.beneficiary_id where b.CURP = ?', [curp ], function(err,result,fields){
             mysqlConexion.on('error', function(err){
                 console.log('[MySQL ERROR]', err);
                 res.json('register error: ', err)
