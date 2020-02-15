@@ -19,7 +19,7 @@ exports.beneficiario = function (req, res) {
        
     else{
       
-       res.json('User not exist');
+       res.json('User not exist Beneficiario');
         
     }    
 });
@@ -36,7 +36,7 @@ exports.todosbeneficiarios = function (req, res) {
     
         
         if(result && result.length){
-            console.log("Resultado " + result);
+          
                 res.end(JSON.stringify(result)) 
         }
        
@@ -65,7 +65,7 @@ exports.beneficiarios = function (req, res) {
        
     else{
       
-       res.json('User not exist');
+       res.json('User not exist sss');
         
     }    
 });
