@@ -72,6 +72,50 @@ exports.beneficiarios = function (req, res) {
  
 };
 
+
+//Actualiza un beneficiario
+exports.update =   async function (req, res) {
+    var post_data = req.body;
+   
+    var CURP = post_data.curp;
+    var nombre = post_data.nombre;
+    var apellido_paterno = post_data.apellido_paterno;
+    var apellido_materno = post_data.apellido_materno;
+    var sexo = post_data.sexo;
+    var calle = post_data.calle;
+    var numero_int = post_data.numero_int;
+    var numero_ext = post_data.numero_ext;
+    var codigo = post_data.cp;
+    var colonia = post_data.colonia;
+    var municipio = post_data.municipio;
+    var estado = post_data.estado;
+    var telefono = post_data.telefono;
+    var celular = post_data.celular;
+    var correo = post_data.correo;
+
+    console.log("Curp =" + post_data);
+   
+   
+    
+     
+  //  mysqlConexion.query('UPDATE beneficiary SET correo = ? WHERE CURP = ? ', 
+  //  [   correo, CURP], function(err,result,fields){
+
+     mysqlConexion.query('UPDATE beneficiary SET nombre = ?,apellido_paterno = ?,apellido_materno = ?,sexo = ?,calle = ?,numero_ext = ?,numero_int = ?,codigo = ?,colonia  = ?,municipio = ?,estado = ?,telefono = ?,celular = ?,correo = ? WHERE CURP = ? ', 
+                                                 [nombre,   apellido_paterno,    apellido_materno,    sexo,     calle,   numero_ext,    numero_int,    codigo,    colonia,     municipio,    estado,    telefono,    celular,    correo, CURP], function(err,result,fields){
+        mysqlConexion.on('error', function(err){
+                console.log('[MySQL ERROR]', err);
+                res.json('register error: ', err)
+            });
+            res.json('Register success');
+        });
+       
+       
+
+
+};
+
+//Inserta un usuario
 exports.create =   async function (req, res) {
     var post_data = req.body;
    
@@ -89,7 +133,8 @@ exports.create =   async function (req, res) {
     var estado = post_data.estado;
     var telefono = post_data.telefono;
     var celular = post_data.celular;
-
+    var correo = post_data.correo;
+    var id = post_data.id;
     console.log("Curp =" + req.body.curp);
    
     mysqlConexion.query('SELECT * FROM beneficiary where CURP =?' ,[CURP], function(err,result,fields){
@@ -101,12 +146,12 @@ exports.create =   async function (req, res) {
         if(result && result.length)
         res.json('Beneficiario alredy exists!!!')
     else{
-        const id = req.session.user_id ;
+        
         console.log('RECUPEAR SESSION ID = ', id);
        //      const sql = "INSERT INTO beneficiary(CURP,nombre,apellido_paterno,apellido_materno,sexo,calle,numero_ext,numero_int,codigo,colonia,municipio,estado,telefono,celular, user_id) VALUES ('CONA','nombre','Prince','De Themyscira','MUJER','AGUA FRIA','8',NULL,45180,'AGUA FRIA','ZAPOPAN','JALISCO',NULL,'3312121200', ?)";
      //mysqlConexion.query( sql, [id],function(err,result,fields){
-     mysqlConexion.query('INSERT INTO beneficiary(CURP,nombre,apellido_paterno,apellido_materno,sexo,calle,numero_ext,numero_int,codigo,colonia,municipio,estado,telefono,celular, user_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', 
-                                                 [CURP,nombre,apellido_paterno,apellido_materno,sexo,calle,numero_ext,numero_int,codigo,colonia,municipio,estado,telefono,celular,id], function(err,result,fields){
+     mysqlConexion.query('INSERT INTO beneficiary(CURP,nombre,apellido_paterno,apellido_materno,sexo,calle,numero_ext,numero_int,codigo,colonia,municipio,estado,telefono,celular, user_id, correo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', 
+                                                 [CURP,nombre,apellido_paterno,apellido_materno,sexo,calle,numero_ext,numero_int,codigo,colonia,municipio,estado,telefono,celular,id, correo], function(err,result,fields){
         mysqlConexion.on('error', function(err){
                 console.log('[MySQL ERROR]', err);
                 res.json('register error: ', err)

@@ -11,6 +11,8 @@ const beneficiario_controller = require('../controller/BeneficiarioController');
 router.get('/test', beneficiario_controller.test);
 // Crea beneficiario
 router.post('/',authorize(), beneficiario_controller.create);
+//Actualiza beneficiario
+router.put('/',authorize(), beneficiario_controller.update);
 // Regresa 1 beneficiario
 router.get('/:curp',authorize(), beneficiario_controller.beneficiario);
 //Regresa lista de beneficiarios a partir de la curp (LIKE)
