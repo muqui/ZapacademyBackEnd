@@ -71,13 +71,34 @@ exports.beneficiario =   async function (req, res) {
     var nombre = post_data.nombre; 
         const id = req.session.user_id ;
         console.log('RECUPEAR SESSION ID = ', id);
+       //comprueba si ya esta asignado el evento.
+       mysqlConexion.query('SELECT * FROM beneficiaryEvent where beneficiary_id  =? and  event_id =?' ,[beneficiary_id,event_id], function(err,result,fields){
+        mysqlConexion.on('error', function(err){
+            console.log('[MySQL ERROR]', err);
+        });
+
+
+        if(result && result.length)
+        res.json('Event alredy exists!!!!')
+    else{
+
         mysqlConexion.query('INSERT INTO beneficiaryEvent(beneficiary_id, event_id) VALUES (?,?)', [beneficiary_id,event_id], function(err,result,fields){
             mysqlConexion.on('error', function(err){
                 console.log('[MySQL ERROR]', err);
                 res.json('register error: ', err)
             });
-            res.json('Register success');
+            res.json('Event Register success');
         })
+
+    }
+
+
+
+    });
+
+
+
+      
 };
 
 exports.notificacion =   async function (req, res) {  //registra cunado se hace una notificacion al beneficiario.
