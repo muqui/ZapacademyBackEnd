@@ -30,13 +30,16 @@ exports.create =   async function (req, res) {
             //console.log("Employee Id:- " + result.insertId);
             
             
-               idx =  resultG.insertId;
-                
+              // idx =  resultG.insertId;
+                /*
                     mysqlConexion.query('select id from beneficiary', function(err,resultB,fields){
                     mysqlConexion.on('error', function(err){
                         console.log('[MySQL ERROR]', err);
                         res.json('register error: ', err)
                     });
+
+                    */
+                    /*
                     for(var attributename in resultB){
                        
                        console.log(attributename+": "+ resultB[attributename].id + " Id  "+ idx);
@@ -50,15 +53,16 @@ exports.create =   async function (req, res) {
                    
                     
                     }
+                    */
                  
                 })
 
             
     
-           idx =  resultG.insertId;
-            res.json(resultG.insertId)
+         //  idx =  resultG.insertId;
+            res.json("Event created")
       
-        })
+       // })
   
         
 };
